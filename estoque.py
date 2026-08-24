@@ -4,6 +4,16 @@ class Estoque:
     def __init__(self):
         self.produtos = {}
 
+
+# Criando ID automáticamente.
+
+    def gerar_id(self):
+        if not self.produtos:
+            return 1
+
+        return max(self.produtos.keys()) + 1
+
+
 # Adiciona um produto no estoque:
 
     def adicionar_produto(self, produto):
@@ -33,6 +43,20 @@ class Estoque:
             return
 
         produto = self.produtos[id_produto]
+
+        while True:
+
+            confirmacao = input( f'Tem certeza que deseja remover "{produto.id}-{produto.nome}"? (s/n): ').lower().strip()
+
+            if confirmacao == 's':
+             break
+
+            if confirmacao == 'n':
+                print('Operação Cancelada.')
+                return
+
+            print('Digite apenas "s" para SIM e "n" para NÃO.')
+
         del self.produtos[id_produto]
         print(f'O {produto.nome} foi removido.')
     
@@ -48,10 +72,25 @@ class Estoque:
         produto = self.produtos[id_produto]
         print(f'Editando produto:{produto.id}{produto.nome}')
 
-        novo_nome = input('Novo nome: ')
-        novo_preco= float(input('Novo preço: '))
-        nova_categoria= input('Nova categoria: ')
-        nova_quantidade= int(input('Nova quantidade: '))
+        try:
+
+            novo_nome = input('Novo nome: ')
+            novo_preco= float(input('Novo preço: '))
+            nova_categoria= input('Nova categoria: ')
+            nova_quantidade= int(input('Nova quantidade: '))
+
+        except ValueError:
+            print('Preço e Quantidade devem ser números.')
+            return
+
+        if not novo_nome.strip() or not nova_categoria.strip():
+            print('Nome e categoria são obrigatórios.')
+            return
+
+        if nova_quantidade < 0 or novo_preco < 0:
+            print('Quantidade e Preço não podem ser negativos.')
+            return
+
 
         produto.nome = novo_nome
         produto.preco = novo_preco
@@ -60,6 +99,7 @@ class Estoque:
         print('Produto atualizado com sucesso.')
 
 # Buscar um produto.
+
     def buscar_produto(self, id_produto):
         if id_produto not in self.produtos:
            print('Produto não encontrado.')

@@ -15,44 +15,88 @@ def mostrar_menu():
     return input('Escolha uma opção: ')
 
 def adicionando_produto():
-    nome = input('Nome: ')
-    categoria = input('Categoria: ')
-    id_produto = int(input('ID: '))
-    quantidade = int(input('Quantidade: '))
-    preco = float(input('Preço: '))
+    try:
+        nome = input('Nome: ')
+        categoria = input('Categoria: ')
+        id_produto = estoque.gerar_id()
+        quantidade = int(input('Quantidade: '))
+        preco = float(input('Preço: '))
 
-    produto = Produto(nome,categoria, id_produto, quantidade, preco)
-    estoque.adicionar_produto(produto)
+        if not nome.strip() or not categoria.strip():
+            print('Nome e categoria são obrigatórios.')
+            return
+
+        if quantidade < 0 or preco < 0 :
+            print('Quantidade  e Preço não podem ser negativos.')
+            return
+
+
+        produto = Produto(nome,categoria, id_produto, quantidade, preco)
+        estoque.adicionar_produto(produto)
+        print(f'ID gerado para o produto: {id_produto}')
+
+    except ValueError:
+        print('Quantidade e Preço devem ser números.')
 
 
 
 def iniciar_estoque():
     while True:
-        opcao = int(mostrar_menu())
+        try:
+         opcao = int(mostrar_menu())
+        except ValueError:
+            print('Digite apenas números.')
+            continue
+
       # Adicionar Produto
+
         if opcao == 1:
             print('Adicionar produto:')
             adicionando_produto()
+            
       # Mostrar estoque
+
         elif opcao == 2:
             print('Mostrando Estoque')
             estoque.mostrar_estoque()
+
       # Buscar produto
+
         elif opcao == 3:
-            id_produto = int(input('Digite o ID do produto:'))
-            produto=estoque.buscar_produto(id_produto)
-            if produto:
-                print(f'Nome= {produto.nome} | Categoria= {produto.categoria} | ID = {produto.id} | Quantidade:{produto.quantidade} | Preço= R${produto.preco:.2f}')
+
+            try:
+                id_produto = int(input('Digite o ID do produto:'))
+                produto=estoque.buscar_produto(id_produto)
+                if produto:
+                 print(f'Nome= {produto.nome} | Categoria= {produto.categoria} | ID = {produto.id} | Quantidade:{produto.quantidade} | Preço= R${produto.preco:.2f}')
+
+            except ValueError:
+                print('ID deve ser um número.')   
+
       # Editar produto
+
         elif opcao == 4:
-            id_produto = int(input('Digite o ID do produto:'))
-            estoque.editar_produto(id_produto)
+
+            try:
+                id_produto = int(input('Digite o ID do produto:'))
+                estoque.editar_produto(id_produto)
+
+            except ValueError:
+                print('ID deve ser um número.')
             
       # Remover produto
+
         elif opcao == 5:
-            id_produto = int(input('Digite o ID do produto: '))
-            estoque.remover_produto(id_produto)
+
+            try:
+                id_produto = int(input('Digite o ID do produto: '))
+                estoque.remover_produto(id_produto)
+
+            except ValueError:
+                print('ID deve ser um número.')
+
       # sair do programa
+
         elif opcao == 0:
             print('Programa encerrado.')
             break

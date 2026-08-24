@@ -33,6 +33,11 @@ Este projeto faz parte da minha jornada de aprendizado em Python e será aprimor
 * 💰 Exibir preços formatados em reais
 * ⚠️ Informar quando um produto não é encontrado
 * 🚪 Encerrar o programa através do menu
+* 🆔 Gerar IDs automaticamente
+* ⚠️ Validar entradas numéricas
+* 🚫 Impedir valores negativos para preço e quantidade
+* 📝 Validar campos obrigatórios
+* ❓ Solicitar confirmação antes da remoção
 
 ## Tecnologias utilizadas:
 
@@ -144,12 +149,13 @@ Durante o desenvolvimento deste projeto foram praticados conceitos como:
 * CRUD
 * Validação de dados
 * Organização de um projeto em diferentes arquivos
+* Tratamento de exceções (`try/except`)
+* Validação de dados
+* Operadores lógicos
 
 ## Próximas melhorias:
 
-* [ ] Melhorar o tratamento de entradas inválidas
-* [ ] Adicionar tratamento de exceções com `try/except`
-* [ ] Gerar IDs automaticamente
+* [ ] Refatorar e melhorar a organização do código
 * [ ] Implementar persistência dos dados
 * [ ] Salvar e carregar produtos utilizando JSON
 * [ ] Melhorar a interface do terminal
